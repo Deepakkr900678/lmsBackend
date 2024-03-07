@@ -3,19 +3,29 @@ const Category = require("../models/Category")
 function getRandomInt(max) {
   return Math.floor(Math.random() * max)
 }
+
+// Create category
+
 exports.createCategory = async (req, res) => {
   try {
-    const { name, description } = req.body
+    //fetch data 
+    const { name, description } = req.body;
+
+    //validation
     if (!name) {
       return res
         .status(400)
         .json({ success: false, message: "All fields are required" })
     }
+
+    //create entry in DB
     const CategorysDetails = await Category.create({
       name: name,
       description: description,
     })
-    console.log(CategorysDetails)
+    console.log(CategorysDetails, "CategorysDetails");
+
+    //return response 
     return res.status(200).json({
       success: true,
       message: "Categorys Created Successfully",
@@ -28,11 +38,13 @@ exports.createCategory = async (req, res) => {
   }
 }
 
+//getAllCategories handler function
 exports.showAllCategories = async (req, res) => {
   try {
     const allCategorys = await Category.find()
     res.status(200).json({
       success: true,
+      message:"All categories fetch",
       data: allCategorys,
     })
   } catch (error) {
@@ -56,7 +68,7 @@ exports.categoryPageDetails = async (req, res) => {
       })
       .exec()
 
-    console.log("SELECTED COURSE", selectedCategory)
+    console.log(selectedCategory, "SELECTED COURSE")
     // Handle the case when the category is not found
     if (!selectedCategory) {
       console.log("Category not found.")

@@ -6,6 +6,8 @@ const User = require("../models/User")
 const { uploadImageToCloudinary } = require("../utils/imageUploader")
 const CourseProgress = require("../models/CourseProgress")
 const { convertSecondsToDuration } = require("../utils/secToDuration")
+
+
 // Function to create a new course
 exports.createCourse = async (req, res) => {
   try {
@@ -77,7 +79,7 @@ exports.createCourse = async (req, res) => {
       thumbnail,
       process.env.FOLDER_NAME
     )
-    console.log(thumbnailImage)
+    console.log(thumbnailImage, "thumbnailImage")
     // Create a new course with the given details
     const newCourse = await Course.create({
       courseName,
@@ -131,6 +133,7 @@ exports.createCourse = async (req, res) => {
     })
   }
 }
+
 // Edit Course Details
 exports.editCourse = async (req, res) => {
   try {
@@ -199,6 +202,7 @@ exports.editCourse = async (req, res) => {
     })
   }
 }
+
 // Get Course List
 exports.getAllCourses = async (req, res) => {
   try {
@@ -219,6 +223,7 @@ exports.getAllCourses = async (req, res) => {
     return res.status(200).json({
       success: true,
       data: allCourses,
+      message: "Data for alll courses fetch successfully"
     })
   } catch (error) {
     console.log(error)
@@ -229,6 +234,7 @@ exports.getAllCourses = async (req, res) => {
     })
   }
 }
+
 // Get One Single Course Details
 // exports.getCourseDetails = async (req, res) => {
 //   try {
@@ -281,6 +287,7 @@ exports.getAllCourses = async (req, res) => {
 //     })
 //   }
 // }
+
 exports.getCourseDetails = async (req, res) => {
   try {
     const { courseId } = req.body
@@ -342,6 +349,7 @@ exports.getCourseDetails = async (req, res) => {
     })
   }
 }
+
 exports.getFullCourseDetails = async (req, res) => {
   try {
     const { courseId } = req.body
@@ -439,6 +447,7 @@ exports.getInstructorCourses = async (req, res) => {
     })
   }
 }
+
 // Delete the Course
 exports.deleteCourse = async (req, res) => {
   try {
